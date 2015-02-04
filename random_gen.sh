@@ -1,3 +1,4 @@
+#!/bin/bash
 touch set1
 touch set2 
 touch set3
