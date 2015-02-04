@@ -7,7 +7,7 @@ do
   for j in `seq 1 10` 
   do
     export LINE=$RANDOM
-    for k in `seq 1 5`
+    for k in `seq 1 4`
     do
       export LINE=$RANDOM,$LINE
      done
