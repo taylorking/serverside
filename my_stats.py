@@ -1,5 +1,4 @@
-#!/usr/bin/env python3.4
-def sum(*args):
+def sum(*args): 
     sum = 0 
     for i in range(0, len(args)):
         sum+=args[i]
@@ -10,7 +9,12 @@ def mean(*args):
         sum+=args[i]
     return sum / len(args)
 def median(*args):
+    my_args = list(args)
+    return (my_args[len(my_args) // 2]) 
+def standard_deviation(*args): 
+    # Not totally sure this is correct.. I googled it
     args = list(args)
-    args.sort()
-    return args[len(args) // 2] 
-print(median(5,4,3))
+    results = 0 
+    for i in range(0,len(args) - 1):
+        results += (args[i +1] - args[i]) ** 2
+    return results / len(args)

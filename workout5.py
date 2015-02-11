@@ -26,12 +26,18 @@ def even(n):
     for i in it_me:
         if i % 2 == 0:
             print(i)
-
+def my_stats_driver(*args):
+    import my_stats
+    print("Median: " + str(my_stats.median(*args)))
+    print("Mean: " + str(my_stats.mean(*args)))
+    print("Sum: " + str(my_stats.sum(*args)))
+    print("SD: " + str(my_stats.standard_deviation(*args)))
 print("Pick a function: ")
 print("1. Run person_info")
 print("2. Celcius to farenheit") 
 print("3. Do the iterator thing")
 print("4. Run decorator") 
+print("5. My stats driver") 
 choice = int(input("> ")) 
 if choice == 1:
     print("Enter arguments to pass to person_info") 
@@ -49,6 +55,12 @@ elif choice == 2:
 elif choice == 3: 
     even(int(input("n > ")))
 elif choice == 4:
+<<<<<<< HEAD
     import decorator 
 elif choice == 5:
    
+=======
+    import decorator
+elif choice == 5: 
+    my_stats_driver(1,2,3,4,5,6,7,8)
+>>>>>>> 3d1d5c048dd5789badc2b2a533f90abd471c9dad
