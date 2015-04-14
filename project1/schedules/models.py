@@ -26,8 +26,6 @@ class date_time_field(models.Field):
         super(date_time_field, self).__init__()
     def serialize(self):
         return force_text(self)
-    # I could do this so easily in node.js.. I have no idea how to do this in django
-     # I googled it so this may or may not be correct
 '''
 class Term(models.Model): 
     year = models.IntegerField()
