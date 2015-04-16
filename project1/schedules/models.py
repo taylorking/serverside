@@ -10,25 +10,6 @@ COURSE_TYPES = (
     ('LAB', 'Lab'),
     ('OTR', 'Other')
 )
-'''
-class date_time_field(models.Field):
-    description = "serialize time when the room is taken" 
-    DAYS = (
-            ('MON', 'Monday'),
-            ('TUE', 'Tuesday'),
-            ('WED', 'Wednesday'),
-            ('THR', 'Thursday'),
-            ('FRI', 'Friday')
-        )
-    day = models.CharField(max_length=3,choices=DAYS,default='MON')
-    available = models.DateTimeField()
-    def __init__(self):
-        super(date_time_field, self).__init__()
-    def serialize(self):
-        return force_text(self)
-    # I could do this so easily in node.js.. I have no idea how to do this in django
-     # I googled it so this may or may not be correct
-'''
 class Term(models.Model): 
     year = models.IntegerField()
     SEMESTERS = ( 
@@ -41,13 +22,13 @@ class Term(models.Model):
     semester = models.CharField(max_length=4, choices=SEMESTERS)
     current = models.BooleanField()
     def __str__(self):
-        return str(self.year) + ':' + self.semester
+        return str(self.year) + ' ' + self.semester
 class Room(models.Model):
     building = models.CharField(max_length=200)
     building_abbreviation = models.CharField(max_length=4)
     room_number = models.CharField(max_length=4)
     capacity = models.IntegerField()
-    day_times_available = models.DateTimeField(auto_now=False) 
+    day_times_available = models.CharField(max_length=200) 
     course_type = models.CharField(max_length=4,choices=COURSE_TYPES)
     comments = models.CharField(max_length=200)
     def __str__(self):
@@ -68,32 +49,26 @@ class Course(models.Model):
       return self.discipline + " " + str(self.course_number) + ": " + self.title 
 
 class MeetingAssignment(models.Model):
-    day = models.DateTimeField(auto_now=False)
-    time = models.DateTimeField(auto_now=False)
+    DAYS = (
+        ('MON','Monday'),
+        ('TUE','Tuesday'),
+        ('WED','Wednesday'),
+        ('THU','Thursday'),
+        ('FRI','Friday')
+    )
+    day = models.CharField(max_length=3, choices=DAYS) 
+    time = models.FloatField()
     duration = models.FloatField()
     term = models.ForeignKey('Term')
     room = models.ForeignKey('Room')
-
-
-class MeetingAssignmentField(models.Field):
-    def __init(self):
-        assign = MeetingAssignment()
-        self.day = assign.day 
-        self.time = assign.time
-        self.duration = assign.duration
-        self.term = assign.term
-        self.room = assign.room
-        super(MeetingAssignmentField, self).__init__()
-    def db_type(self, connection): 
-      return 'MeetingAssignment'
-
+    def __str__(self):
+      return str(self.room) + " " + str(self.day) + " " + str(self.time)
 class Section(models.Model):
     term = models.ForeignKey('Term')
     course = models.ForeignKey('Course')
     instructor = models.ForeignKey('Instructor')
     section_number = models.IntegerField()
-    meeting_assignment = MeetingAssignmentField()
- #   meeting_assignment = models.ManyToManyField('MeetingAssignment')
+    meeting_assignment = models.ManyToManyField('MeetingAssignment')
     type_room_needed = models.CharField(max_length=4,choices=COURSE_TYPES)
     seats_required = models.IntegerField()
     def __str__(self):
