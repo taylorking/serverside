@@ -1,0 +1,11 @@
+<html> 
+  <body> 
+    <table>
+    {% for weight in latest_weight_list %}
+    <tr>
+      <td>{{ weight.date_recorded }}</td><td>{{ weight.weight }}</td> 
+    </tr>
+    {% endfor %} 
+    </ul>
+  </body>
+</html>
