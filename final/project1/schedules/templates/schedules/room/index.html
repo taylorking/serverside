@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+aaab
+{% block body_block %} 
+{% for room in latest_room_list %}
+{{room.building_abbreviation}} {{ room.room_number }}<br />
+{% endfor %}    
+{% endblock %}
+

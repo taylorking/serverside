@@ -1,0 +1,36 @@
+
+{% extends "base.html" %} 
+   {% block body_block %}
+    <table>  
+    <tr>
+      <td>Course Title</td><td>Section</td><td>Instructor</td><td>Meeting Assignments</td><td>Room Type</td><td>Seats Required</td><td>Hours Credit</td>
+    </tr>
+    {% for section in section_list %}
+      <tr {% if section.meeting_assignment.all.count < 1%}bgcolor="#FF0000"{%endif%}> 
+        <td>
+          {{ section.course.title }}        
+        </td>
+        <td>
+          {{ section.section_number }}
+        </td>
+        <td> 
+          {{ section.instructor.title}} {{section.instructor.name }} 
+        </td>
+        <td>
+          {% for assignment in section.meeting_assignment.all %}
+          {{ assignment }}<br />
+          {% endfor %}
+        </td>
+        <td> 
+          {{ section.type_room_needed }}
+        </td>
+        <td>
+          {{ section.seats_required }}
+        </td>
+        <td>
+          {{ section.course.hours_credit }}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+   {% endblock %}

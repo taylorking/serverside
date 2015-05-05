@@ -1,0 +1,40 @@
+{% extends "base.html" %} 
+{% block body_block %} 
+<h3>Instructors overview  <a href="{% url 'schedules:instructor_create'%}"><img src="http://uxrepo.com/static/icon-sets/iconic/svg/plus-circle.svg" height=16px width=16px/></a></h3>  
+<table border="1">
+    <tr>
+      <td> 
+        Instructor
+      </td>
+      <td>
+        Email
+      </td>
+      <td>
+        Requested Courses
+      </td>
+      <td> 
+        Assigned Sections
+      </td>
+    </tr>
+      {% for instructor in instructor_list %}
+      <tr>  
+      <td>{{instructor.title}} {{instructor.name}}</td>
+        <td>{{instructor.email}}</td>
+        <td>
+        {% for course in instructor.requested_courses.all %}
+        {{ course.discipline }} {{ course.course_number }}<br />
+        {% endfor %}
+        </td>
+        <td>
+          {%for section in section_list %}
+          {% if section.instructor.name == instructor.name %}
+          {{section.course.discipline}} {{section.course.course_number}} {{ section.section_number }}<br/>
+          {% endif %}
+          {% endfor %}
+        </td>
+      {% endfor %}
+    </tr>
+  </table>
+
+
+{% endblock %}

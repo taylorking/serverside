@@ -1,0 +1,20 @@
+{% extends "base.html" %} 
+<html>
+  <head>
+    <title>
+    </title>
+  </head>
+  <body>
+:   {% block body_block %}
+    <table>    
+{% for course in latest_course_list %}
+<img src="http://ray.kingtb.tk:8000/static/b.png"/>
+<tr><td><a href="{% url 'schedules:course_detail' course.id %}">?</a></td>
+  <td><a href="{% url 'schedules:course_update' course.id %}">u</a></td>
+  <td><a href="{% url 'schedules:course_delete' course.id %}">d</a></td> 
+  <td>{{ course.title }}</td></tr>
+{% endfor %} 
+{% endblock %} 
+</table>
+</body>
+</html>
